@@ -38,13 +38,13 @@ The **back-end** of the system is written in python using *Flask*.
 
 The main back-end file is `./backend/Backend.py`, other files in this folder include:
 
-- **NGSS_DCI.json: ** All the Disciplinary Core Ideas in the Next Generation Science Standards (NGSS) between kindergarten level to second grade level. Stored in the format of dictionary.
-- **NGSS_statements.json: ** All the statements in the NGSS between kindergarten level to second grade level. Stored in the format of dictionary.
-- **Similarity_dict.json: **This file stores all the concept words with their matched knowledge. When the system matches a new paragraph with scientific knowledge, it will first look for existing words in this file. If the concept words cannot be found in this file, it will generate new data and add it to this file.
+- **NGSS_DCI.json:** All the Disciplinary Core Ideas in the Next Generation Science Standards (NGSS) between kindergarten level to second grade level. Stored in the format of dictionary.
+- **NGSS_statements.json:** All the statements in the NGSS between kindergarten level to second grade level. Stored in the format of dictionary.
+- **Similarity_dict.json:** This file stores all the concept words with their matched knowledge. When the system matches a new paragraph with scientific knowledge, it will first look for existing words in this file. If the concept words cannot be found in this file, it will generate new data and add it to this file.
 - **Text_Process.py:** This file processes the story text by splitting each word in a paragraph and mark the property of each word (stop word or not).
 - **GPT_process.py:** This file uses the OpenAI chat completion API and applies our prompts to ask GPT-4 to generate questions and feedbacks according to users' inputs.
 - **Keyword_Matching.py:** This file uses the OpenAI chat completion API and applies our prompts to ask GPT-4 to generate a short sentence of explanation of a concept word.
-- **Audio_Generation.py: **This file uses the OpenAI text to speech API to generate audio files from a given text, such as story texts, chatbot's questions and feedback.
+- **Audio_Generation.py:** This file uses the OpenAI text to speech API to generate audio files from a given text, such as story texts, chatbot's questions and feedback.
 
 
 
