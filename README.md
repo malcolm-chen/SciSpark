@@ -16,7 +16,7 @@ All the books, images, audio files, and user data are stored in the `./static/fi
 
 The files are named under each interface:
 
-- **login page:** This interface asks the user to enter their username and password to login to our system. All the users' usernames and passwords are stored in the back-end file (`./backend/Backend.py`).
+- **login page:** This interface asks the user to enter their username and password to login to our system. All the users' usernames and passwords are stored in the back-end file (`./Backend.py`).
 
 - **library page:** This interface displays all the books pre-stored in our system, users can select one book and read it.
 
