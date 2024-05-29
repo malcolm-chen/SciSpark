@@ -9,8 +9,10 @@ from Keyword_Matching import keyword_matching
 from Audio_Generation import audio_gen
 from openai import OpenAI
 
-client = OpenAI()
-OpenAI.api_key = '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'
+client = OpenAI(
+    api_key = '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'
+)
+# OpenAI.api_key = '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'
 
 MODEL = "gpt-4"
 
