@@ -4,8 +4,10 @@ import openai
 import os
 from openai import OpenAI
 
-client = OpenAI()
-OpenAI.api_key = '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'
+client = OpenAI(
+    api_key = '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'
+)
+# OpenAI.api_key = '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'
 
 def audio_gen(text, path):
     response = client.audio.speech.create(
