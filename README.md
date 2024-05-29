@@ -50,7 +50,13 @@ The main back-end file is `./backend/Backend.py`, other files in this folder inc
 
 #### 2. Quickstart
 
-To run the codes for our system, you can create a virtual environment using anaconda, and install all the required packages in the `requirements.txt` file, using the following command line:
+To run the codes for our system, you can create a virtual environment using anaconda:
+
+```shell
+conda create -n [YOUR ENV NAME] python=3.7.16
+```
+
+Then, you can install all the required packages in the `requirements.txt` file, using the following command line:
 
 ```shell
 pip install -r requirements.txt
