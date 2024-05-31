@@ -3,7 +3,7 @@ from retry import retry
 from sentence_transformers import SentenceTransformer, util
 from Text_Process import split_para, split_sentence
 
-openai.api_key = "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"
+openai.api_key =  "api_key = '# add yout OpenAI API Key'"
 MODEL = "gpt-4"
 
 @retry(
