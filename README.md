@@ -53,7 +53,7 @@ The main back-end file is `./backend/Backend.py`, other files in this folder inc
 To run the codes for our system, you can create a virtual environment using anaconda:
 
 ```shell
-conda create -n [YOUR ENV NAME] python=3.7.16
+conda create -n [YOUR ENV NAME] python=3.8.19
 ```
 
 Then, you can install all the required packages in the `requirements.txt` file, using the following command line:
