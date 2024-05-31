@@ -64,3 +64,5 @@ pip install -r requirements.txt
 
 Then, open the back-end file:  `./backend/Backend.py` and running this file, you should be able to access the system via your local server.
 
+#### API Key
+To use enable the chatbot, you need to add your OpenAI API Key in the following files: **GPT_process.py**, **Keyword_Matching.py**, **Audio_Generation.py**
