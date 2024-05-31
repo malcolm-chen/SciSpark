@@ -10,9 +10,8 @@ from Audio_Generation import audio_gen
 from openai import OpenAI
 
 client = OpenAI(
-    api_key = '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'
+    api_key = '# add yout OpenAI API Key'
 )
-# OpenAI.api_key = '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'
 
 MODEL = "gpt-4"
 
