@@ -4,9 +4,14 @@ import openai
 import os
 from openai import OpenAI
 
+from dotenv import load_dotenv
+    
+load_dotenv()
+
 client = OpenAI(
-    api_key = "api_key = '# add yout OpenAI API Key'"
+    api_key = os.environ.get("OPENAI_API_KEY")
 )
+
 
 def audio_gen(text, path):
     response = client.audio.speech.create(

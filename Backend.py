@@ -55,7 +55,7 @@ LibraryBooks = [
 
 @app.route('/')
 def load():
-    return render_template("index.html")
+    return render_template("/index.html")
 
 @app.route('/api/login', methods=['POST'])
 def login():

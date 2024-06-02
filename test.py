@@ -1,7 +1,15 @@
 from pathlib import Path
 import openai
 
-openai.api_key = "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"
+
+from dotenv import load_dotenv
+    
+load_dotenv()
+    
+openai.api_key =  = os.environ.get("OPENAI_API_KEY")
+
+
+
 
 speech_file_path = Path(__file__).parent / "speech.mp3"
 response = openai.audio.speech.create(
