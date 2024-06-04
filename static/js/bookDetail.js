@@ -338,6 +338,7 @@ function startVoiceInput() {
     textInput.style.visibility = 'visible';
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.style.visibility = 'visible';
+    voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Speaking...`;
     if ('webkitSpeechRecognition' in window) {
       const recognition = new webkitSpeechRecognition();
       recognition.lang = 'en-US';
@@ -346,6 +347,7 @@ function startVoiceInput() {
         const result = event.results[0][0].transcript;
         textInput.value = result;
         textInput.removeAttribute('readonly');
+          voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Answer here!`;
       };
 
       recognition.start();
