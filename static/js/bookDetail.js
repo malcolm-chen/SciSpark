@@ -23,6 +23,7 @@ let month;
 let day;
 let isDataLoaded = false; 
 let isAudioEnded = false; 
+let isExpEnded = false;
 
 function startSessionTimer() {
     sessionStartTime = new Date().getTime(); // Get current time
@@ -172,15 +173,21 @@ function genConv(){
     const audioPlayer = document.getElementById('audioPlayer');
     audioPlayer.addEventListener('ended', function () {
         isAudioEnded = true;
-        if (isDataLoaded && !isPlayed) { 
-            playConvAudio();
-            isPlayed = true;
+        if (isDataLoaded && !isExpPlayed) { 
+            playExpAudio();
+            const ExpAudioPlayer = document.getElementById('expAudioPlayer');
+            ExpAudioPlayer.addEventListener('ended', function () {
+                isExpEnded = true;
+                playConvAudio();
+                isExpPlayed = true;
+            });
         }
         audioPlayer.removeEventListener('ended', arguments.callee);
     });
 
     isDataLoaded = false;
-    isPlayed = false;
+    isExpPlayed = false;
+    isConvPlayed = false;
 
     fetch('/api/conv', {
         method: 'POST',
@@ -233,8 +240,11 @@ function genConv(){
         /*console.log(chatBox.innerHTML);*/
         /*document.getElementById('response').innerHTML = data.response;*/
         isDataLoaded = true;
-        if(isAudioEnded && !isPlayed){
-            playConvAudio();
+        if(isAudioEnded && !isExpPlayed){
+            playExpAudio();
+            if(isExpEnded && !isConvPlayed){
+                playConvAudio();
+            }
         }
     })
     .catch(error => console.error('Error:', error));
@@ -254,12 +264,23 @@ function playConvAudio(){
     }
 }
 
+function playExpAudio(){
+    if (isKeyWord && !isReview){
+        isExpEnded = false;
+        expAudioPlayer.src = `../static/files/books/${bookTitle}/exp_audio/exp_audio${(currentImageIndex-1)}.mp3`;
+        expAudioPlayer.play();
+    }
+}
+
 function playNextSentence() {
     if (currentSentence < sections[currentImageIndex-1].length -1 && !isKeyWord) {
         currentSentence++;
         playAudio(sections[currentImageIndex-1][currentSentence].audio);
         render_caption(sections[currentImageIndex-1][currentSentence].text);
     } else {
+        if (isKeyWord && !isReview){
+            playExpAudio();
+        }
         audioPlayer.removeEventListener('ended', playNextSentence);
         /* add another factor: this is the first time to answer */
         /*if (isKeyWord && !isReview){
@@ -338,6 +359,7 @@ function startVoiceInput() {
     textInput.style.visibility = 'visible';
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.style.visibility = 'visible';
+    voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Speaking...`;
     if ('webkitSpeechRecognition' in window) {
       const recognition = new webkitSpeechRecognition();
       recognition.lang = 'en-US';
@@ -346,6 +368,7 @@ function startVoiceInput() {
         const result = event.results[0][0].transcript;
         textInput.value = result;
         textInput.removeAttribute('readonly');
+        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Answer here!`;
       };
 
       recognition.start();
@@ -425,7 +448,7 @@ function updateChatHistory(gptRes){
         </div>
         <div class="message-user">
             <div class="message-bubble user" id="user_res_${gptRes.q_id}" style="background-color: ${bg_color}">${curQA.answer}</div>
-            <img src="../static/files/imgs/${curUser}Icon.png" class="avatar">
+            <img src="../static/files/imgs/EmmaIcon.png" class="avatar">
         </div>
     </div>`;
     /* if(!childRes.correct){

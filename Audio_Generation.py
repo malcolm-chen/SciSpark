@@ -3,9 +3,13 @@ from Text_Process import split_sentence
 import openai
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
+    
+load_dotenv()
 
-client = OpenAI()
-OpenAI.api_key = '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'
+client = OpenAI(
+    api_key = os.environ.get("OPENAI_API_KEY")
+)
 
 def audio_gen(text, path):
     response = client.audio.speech.create(
@@ -85,7 +89,7 @@ def story_audio(user, title, isLibrary):
             audio_story_gen(user, title, sec, i, j, isLibrary)
 
 # save_sen_split('user', "How to Catch the Wind", True)
-# story_audio('user', "How to Catch the Wind", True)
+
 
 
 def validate_text(title):
@@ -102,3 +106,15 @@ def validate_text(title):
         for j in i:
             all_text2 += j
     print(all_text1.replace(' ', '') == all_text2.replace(' ', ''))
+
+def gen_lib():
+    lib_book = [
+        "Amara and the Bats",
+        "Fairy Science",
+        "Oscar and the CRICKET",
+        "PENNY, the Engineering Tail of the Fourth Little Pig"
+    ]
+    for b in lib_book:
+        story_audio('user', b, True)
+
+# gen_lib()

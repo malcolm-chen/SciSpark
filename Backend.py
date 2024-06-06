@@ -36,6 +36,7 @@ users = [
     {'username': 'user7', 'password': 'pass7'},
     {'username': 'user8', 'password': 'pass8'},
     {'username': 'Emma', 'password': 'emma'},
+    {'username': 'user', 'password': 'pass'}
 ]
 
 '''
@@ -46,11 +47,10 @@ current_user = {
 '''
 
 LibraryBooks = [
-    "the little snowplow",
-    "newton and me",
-    "sami's beach rescue",
-    "why do sunflowers love the sun",
-    "how to catch the wind"
+    "amara and the bats",
+    "oscar and the cricket",
+    "penny, the engineering tail of the fourth little pig",
+    "fairy science"
 ]
 
 @app.route('/')
@@ -379,5 +379,4 @@ def update_time():
     save_json('./static/files/' + user + '/dashboardData.json', dashboard_stat)
     return jsonify('success')
 
-if __name__ == '__main__':    
-    app.run(debug=True)
+if __name__ == '__main__':        app.run(debug=True)
