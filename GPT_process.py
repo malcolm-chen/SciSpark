@@ -8,11 +8,11 @@ from Text_Process import split_para
 from Keyword_Matching import keyword_matching
 from Audio_Generation import audio_gen
 from openai import OpenAI
-
+import shutil
 from dotenv import load_dotenv
     
 load_dotenv()
-    
+
 client = OpenAI(
     api_key = os.environ.get("OPENAI_API_KEY")
 )
@@ -204,7 +204,7 @@ If the conversation comes to an end and you are providing the last feedback with
 Please note that when the texts of 'feedback', 'explanation', 'transition' and 'question' are combined, it should become a smooth reply.
 
 <Story Title>: {title}
-    <Story Text>:
+<Story Text>:
     '''
     {story}
     '''
@@ -216,52 +216,6 @@ Please note that when the texts of 'feedback', 'explanation', 'transition' and '
     Now, start the conversation:
     """
 
-    Instruction3 = f"""\
-    Now you are a conversational agent interacting with a preschooler. You and the child will take turns having a conversation, with each turn generating a question. 
-    In total, the conversation consists of a series of questions (no more than five questions) in child-friendly language.
-
-    There will be a concept word in the story text, and the concept word is associated with the external science knowledge.
-    The feedback contains your response to the child's answer and a new question.
-    The generated questions should be based on the concept word in the story text and associated with external science knowledge.
-    The generated questions should contain the associated external science knowledge to enrich the preschooler's science knowledge.
-    The generated questions in the series should follow the Science and Engineering Practices of preschoolers.
-    The generated question series should be based on the story text, concept word, knowledge, and practices I provide.  
-
-    For the first question you generate which the conversation starts, please follow this json format:
-    {{
-        "greeting": [Greet the child and starts the conversation.],
-        "question": [The first question.]
-    }}
-
-    After generating one question, do not automatically generate the child's response, because I will provide the child's response. 
-    When the child responds, provide your response to them.
-    Your response should consist a judgment of whether the child's answer is correct or incorrect, then give a friendly feedback based on the child's answer, an explanation of the answer to the previous question, and finally transit to the next question if the conversation does not end.
-    The format of your response should follow this json format:
-    {{ 
-        "judgement": [Judgement of the child's answer: correct/incorrect/partially correct.],
-        "feedback": [Your feedback to the child's answer, it should be encouraging regardless of the correctness of the child's answer, such as 'Good job!', 'You are absolutely right', 'That's ok!', etc.],
-        "explanation": [An explanation of the previous question with the related knowledge according to the child's answer],
-        "transition": [A transition to a new question or closing the conversation, such as 'Here's a new question:', 'Let's move on reading!', etc.],
-        "question": [The new question.]
-        "end": [true/false]
-    }}    
-    
-    If the conversation comes to an end and you are providing the last feedback without asking a new question to the child, leave the 'question' part empty and the 'end' part should be 'true'.
-    Please note that when the texts of 'feedback', 'explanation', 'transition' and 'question' are combined, it should become a smooth reply.
-    Keep your response concise, each part should preferably not exceed 100 characters. 
-
-    <Story Title>: {title}
-    <Story Text>:
-    '''
-    {story}
-    '''
-
-    <Concept Word>:{keyword}
-    <Knowledge>:{knowledge}
-    <Science and Engineering Practices>:{statements}
-
-    Now, start the conversation:
-    """
     return Instruction4
 
 def load_json(file_path):
@@ -371,17 +325,6 @@ def keyword_identifying(title, input):
        
     return input
 
-# Deprecated
-'''def knowledge_keyword_gen(user, title, isLibrary):
-    if os.path.exists('./static/files/books/' + title + '/' + title + ' Gen_test.json'):
-        identified_words = load_json('./static/files/books/' + title + '/' + title + ' Gen_test.json')
-    else:
-      story_content = load_json('./static/files/books/' + title + '/' + title + '.json')
-      knowledge_match = knowledge_matching(story_content)
-      identified_words = keyword_identifying(title, knowledge_match)
-      save_json('./static/files/books/' + title + '/' + title + ' Gen.json', identified_words)  
-    return identified_words'''
-
 def knowledge_keyword_gen(user, title, isLibrary):
     if isLibrary:
         return load_json('./static/files/books/' + title + '/' + title + ' Gen.json')
@@ -394,6 +337,14 @@ def knowledge_keyword_gen(user, title, isLibrary):
     return knowledge_gen
 
 def conv_gen(id, title, user, isLibrary):
+    if not os.path.exists('./static/files/' + user + '/' + title + "/conversation/"):
+        os.makedirs('./static/files/' + user + '/' + title + "/conversation/")
+    if isLibrary and os.path.exists("./static/files/books/" + title + "/conv_audio/") and not os.path.exists("./static/files/" + user + "/" + title + "/conv_audio/"):
+        os.makedirs("./static/files/" + user + "/" + title + "/conv_audio/")
+    if not os.path.exists("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json") and os.path.exists("./static/files/books/" + title + "/conversation/get_conv_sec_" + id + ".json"):
+        save_json("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json", load_json("./static/files/books/" + title + "/conversation/get_conv_sec_" + id + ".json"))
+        shutil.copy("./static/files/books/" + title + "/conv_audio/sec_" + str(id) + "_q_1.mp3", "./static/files/" + user + "/" + title + "/conv_audio/sec_" + str(id) + "_q_1.mp3")
+    
     if os.path.exists("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json"):
         return json.loads(load_json("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json")[1]['content'])
     if isLibrary:
@@ -442,7 +393,58 @@ def conv_gen(id, title, user, isLibrary):
     return first_conv_dict
     
 
+def label_conv_gen(id, title, user, isLibrary):
+    # if os.path.exists("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json"):
+    #     return json.loads(load_json("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json")[1]['content'])
+    if not os.path.exists('./static/files/books/' + title + "/conversation/"):
+         os.makedirs('./static/files/books/' + title + "/conversation/")
+    if isLibrary:
+        sec_dict = load_json('./static/files/books/' + title + '/' + title + ' Gen.json')[str(id)]
+        section = load_json('./static/files/books/' + title + '/' + title + '.json')[int(id)]
+    else:
+        sec_dict = load_json('./static/files/' + user + '/' + title + '/' + title + ' Gen.json')[str(id)]
+        section = load_json('./static/files/' + user + '/' + title + '/' + title + '.json')[int(id)]
+    
+    chatHistory = load_json('./static/files/books/' + title + '/' + title + '_knowledge_dict.json')
+
+    label = load_json('./static/files/books/' + title + '/' + 'label.json')
+
+    keyword = sec_dict['keyword']
+    knowledge = sec_dict['knowledge'].lower()
+    statements = label[id]['statement']
+    
+    input = prompt_conv(title, section, keyword, knowledge, statements)
+    first_conv_dict = {
+         "greeting": "Hi there! Let's talk about something fun in " + title + '!',     
+         "question": label[id]['question']
+    }
+    messages = [
+        {"role": "system", "content": input},
+        {"role": "assistant", "content": json.dumps(first_conv_dict)}
+    ]
+
+    chatHistory[id]['conversation'].append({
+        'question': first_conv_dict['question'],
+        'answer': '',
+        'correct': '',
+        'explanation': ''
+    })
+
+    if not os.path.exists("./static/files/books/" + title + "/conv_audio"):
+        os.makedirs("./static/files/books/" + title + "/conv_audio")
+    audio_gen(first_conv_dict['greeting'] + first_conv_dict['question'], "./static/files/books/" + title + "/conv_audio/sec_" + str(id) + "_q_1.mp3")
+
+    save_json('./static/files/books/' + title + '/' + title + '_knowledge_dict.json', chatHistory)
+    save_json("./static/files/books/" + title + "/conversation/get_conv_sec_" + id + ".json", messages)
+    return first_conv_dict
+
 # conv_gen("2", 'The Little Snowplow', 'user')
+def gen_first_conv_label(title):
+    label = load_json('./static/files/books/' + title + '/' + 'label.json')
+    for sec_id, val in label.items():
+        label_conv_gen(str(sec_id), title, 'user', True)
+
+# gen_first_conv_label('Oscar and the CRICKET')
 
 def chat_gen(id, title, user, response):
     messages = load_json("./static/files/" + user + "/" + title + "/conversation/get_conv_sec_" + id + ".json")
@@ -500,9 +502,9 @@ def save_knowledge(user, title, isLibrary):
                 'keyword': value['keyword'],
                 'explanation': value['explanation'],
                 'knowledge': value['knowledge'],
-                'discipline': knowledge_dict[value['knowledge']]['Discipline'],
-                'sub-disc': knowledge_dict[value['knowledge']]['SubDiscipline'],
-                'topic': knowledge_dict[value['knowledge']]['Topic'],
+                'discipline': knowledge_dict[value['knowledge'].lower()]['Discipline'],
+                'sub-disc': knowledge_dict[value['knowledge'].lower()]['SubDiscipline'],
+                'topic': knowledge_dict[value['knowledge'].lower()]['Topic'],
                 'answer': False,
                 'dash': False,
                 'conversation': []
@@ -511,6 +513,33 @@ def save_knowledge(user, title, isLibrary):
         save_json('./static/files/books/' + title + '/' + title + '_knowledge_dict.json', gpt_data)
     else:
         save_json('./static/files/' + user + '/' + title + '/' + title + '_knowledge_dict.json', gpt_data)
+
+def save_label_knowledge(user, title, isLibrary):
+    if (isLibrary):
+        gen_data = load_json('./static/files/books/' + title + '/' + title + ' Gen.json')
+    else:
+        gen_data = load_json('./static/files/' + user + '/' + title + '/' + title + ' Gen.json')
+    gpt_data = {}
+    for key, value in gen_data.items():
+        if value['use'] == 1:
+            gpt_data[key] = {
+                'keyword': value['keyword'],
+                'explanation': value['explanation'],
+                'knowledge': value['knowledge'],
+                'discipline': '',
+                'sub-disc': '',
+                'topic': '',
+                'answer': False,
+                'dash': False,
+                'conversation': []
+            }
+    if (isLibrary):
+        save_json('./static/files/books/' + title + '/' + title + '_knowledge_dict.json', gpt_data)
+    else:
+        save_json('./static/files/' + user + '/' + title + '/' + title + '_knowledge_dict.json', gpt_data)
+
+
+# save_label_knowledge('user', 'Oscar and the CRICKET', True)
 
 def get_book_discipline(user, title, isLibrary):
     if (isLibrary):
@@ -547,14 +576,26 @@ def get_book_discipline(user, title, isLibrary):
 
 def update_lib():
     lib_book = [
-        "How to Catch the Wind",
-        "Newton And Me",
-        "The Little Snowplow",
-        "Sami's Beach Rescue",
-        "Why Do Sunflowers Love the Sun"
+        "Amara and the Bats",
+        "Fairy Science",
+        # "Oscar and the CRICKET",
+        "PENNY, the Engineering Tail of the Fourth Little Pig"
     ]
     for b in lib_book:
         save_knowledge('user', b, True)
         knowledge_keyword_gen('user', b, True)
 
+def gen_conv_lib():
+    lib_book = [
+        "Amara and the Bats",
+        "Fairy Science",
+        "Oscar and the CRICKET",
+        "PENNY, the Engineering Tail of the Fourth Little Pig"
+    ]
+    for b in lib_book:
+        kg_dict = load_json('./static/files/books/' + b + '/' + b + '_knowledge_dict.json')
+        for key, val in kg_dict.items():
+            conv_gen(key, b, 'user', True)
+
 # update_lib()
+# gen_conv_lib()

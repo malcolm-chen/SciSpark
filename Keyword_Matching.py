@@ -2,13 +2,16 @@ import json, openai
 from retry import retry
 from sentence_transformers import SentenceTransformer, util
 from Text_Process import split_para, split_sentence
+from Audio_Generation import audio_gen
 import os
+from openai import OpenAI
 from dotenv import load_dotenv
     
 load_dotenv()
 
-openai.api_key =  os.environ.get("OPENAI_API_KEY")
-
+client = OpenAI(
+    api_key = os.environ.get("OPENAI_API_KEY")
+)
 MODEL = "gpt-4"
 
 @retry(
@@ -113,7 +116,7 @@ def keyword_matching(user, title, isLibrary):
         story_content = load_json('./static/files/' + user + '/' + title + '/' + title + '.json')
         sen_split = load_json('./static/files/' + user + '/' + title + '/' + title + '_sentence_split.json')
     
-    all_knowldge = {}
+    all_knowledge = {}
     gen_result = {}
     for i, para in enumerate(story_content):
         text_tokens = []
@@ -132,8 +135,8 @@ def keyword_matching(user, title, isLibrary):
                     keyword = token['word']
             text_tokens.append(split_sen)
         # print(keyword, best_kg, best_sim)
-        if (best_kg != '') and (best_kg not in all_knowldge) or (best_kg in all_knowldge and best_sim > all_knowldge[best_kg]['sim']):
-            all_knowldge[best_kg] = {
+        if (best_kg != '') and (best_kg not in all_knowledge) or (best_kg in all_knowledge and best_sim > all_knowledge[best_kg]['sim']):
+            all_knowledge[best_kg] = {
                 'sim': best_sim,
                 'sec_id': i,
                 'keyword': keyword
@@ -147,7 +150,7 @@ def keyword_matching(user, title, isLibrary):
             'explanation': ''
         }
 
-    for kg, value in all_knowldge.items():
+    for kg, value in all_knowledge.items():
         gen_result[value['sec_id']]['keyword'] = value['keyword']
         gen_result[value['sec_id']]['knowledge'] = kg
         gen_result[value['sec_id']]['use'] = 1
@@ -177,9 +180,69 @@ def save_split_sentence(title):
     story_content = load_json('./static/files/books/' + title + '/' + title + '.json')
     sentences = []
     for para in story_content:
-        sen = split_sentence(para)
+        sen = split_sentence(para[0])
         sentences.append(sen)
     save_json('./static/files/books/' + title + '/' + title + '_sentence_split.json', sentences)
 
-# save_split_sentence("The Little Snowplow")
-# keyword_matching('user', "Why Do Sunflowers Love the Sun", True)
+def label_gen(title):
+    label = load_json('./static/files/books/' + title + '/' + 'label.json')
+    story_content = load_json('./static/files/books/' + title + '/' + title + '.json')
+    sen_split = load_json('./static/files/books/' + title + '/' + title + '_sentence_split.json')
+
+    gen_result = {}
+    for i, para in enumerate(story_content):
+        text_tokens = []
+        keyword = ''
+        best_kg = ''
+        for sen in sen_split[i]:
+            split_sen = split_para(sen)
+            for token in split_sen:
+                if token['stopword']:
+                    continue
+            text_tokens.append(split_sen)
+        gen_result[i] = {
+            'section': text_tokens,
+            'section_text': sen_split[i],
+            'knowledge': '',
+            'keyword': '',
+            'use': 0,
+            'explanation': ''
+        }
+    if not os.path.exists('./static/files/books/' + title + '/exp_audio/'):
+         os.makedirs('./static/files/books/' + title + '/exp_audio/')
+
+    for sec_id, val in label.items():
+        gen_result[int(sec_id)]['keyword'] = val['keyword']
+        gen_result[int(sec_id)]['knowledge'] = val['DCI']
+        gen_result[int(sec_id)]['use'] = 1
+        gen_result[int(sec_id)]['explanation'] = evaluate(prompting_explanation(val['keyword'], val['DCI']))
+        audio_gen(gen_result[int(sec_id)]['explanation'], './static/files/books/' + title + '/exp_audio/exp_audio' + sec_id + '.mp3')
+        match_flag = False
+        for i, sen in enumerate(gen_result[int(sec_id)]['section']):
+            if (match_flag):
+                break
+            for j, token in enumerate(sen):
+                if token['word'] == val['keyword']:
+                    gen_result[int(sec_id)]['section'][i][j]['keyword'] = 1
+                    match_flag = True
+                    break
+
+    save_json('./static/files/books/' + title + '/' + title + ' Gen.json', gen_result)  
+
+
+def gen_sent_split():
+    lib_book = [
+        "Amara and the Bats",
+        "Fairy Science",
+        "Oscar and the CRICKET",
+        "PENNY, the Engineering Tail of the Fourth Little Pig"
+    ]
+    for b in lib_book:
+        save_split_sentence(b)
+
+
+# gen_sent_split()
+
+# label_gen('Oscar and the CRICKET')
+# save_split_sentence("Water Cycle Earth Science")
+# keyword_matching('user', "Water Cycle Earth Science", True)

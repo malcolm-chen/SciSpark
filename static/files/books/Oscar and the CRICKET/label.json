@@ -1,0 +1,56 @@
+{
+    "0":{
+        "keyword": "roll",
+        "question": "What makes a ball a good object to roll?",
+        "DCI": "Pushing or pulling on an object can change the speed or direction of its motion and can start or stop it.",
+        "statement": "Analyze data to determine if a design solution works as intended to change the speed or direction of an object with a push or a pull."
+    },
+    "2":{
+        "keyword": "rolling",
+        "question": "How can grass slow down a ball?",
+        "DCI": "When objects touch or collide, they push on one another and can change motion.",
+        "statement": "Analyze data to determine if a design solution works as intended to change the speed or direction of an object with a push or a pull."
+    },
+    "3":{
+        "keyword": "pull",
+        "question": "How did Oscar move the branch?",
+        "DCI": "When objects touch or collide, they push on one another and can change motion.",
+        "statement": "Plan and conduct an investigation to compare the effects of different strengths or different directions of pushes and pulls on the motion of an object. \nAnalyze data to determine if a design solution works as intended to change the speed or direction of an object with a push or a pull."
+    },
+    "5":{
+        "keyword": "push",
+        "question": "What did he do to make the ball move?",
+        "DCI": "Pushing or pulling on an object can change the speed or direction of its motion and can start or stop it.",
+        "statement": "Plan and conduct an investigation to compare the effects of different strengths or different directions of pushes and pulls on the motion of an object."
+    },
+    "8":{
+        "keyword": "BOUNCE",
+        "question": "What happened to the ball when it hit the tree? Why do you think that is? Why did it not stop?",
+        "DCI": "When objects touch or collide, they push on one another and can change motion.",
+        "statement": "Plan and conduct an investigation to compare the effects of different strengths or different directions of pushes and pulls on the motion of an object."
+    },
+    "10":{
+        "keyword": "pushing",
+        "question": "Why are the leaves moving?",
+        "DCI": "Pushing or pulling on an object can change the speed or direction of its motion and can start or stop it.",
+        "statement": "Plan and conduct an investigation to compare the effects of different strengths or different directions of pushes and pulls on the motion of an object."
+    },
+    "11":{
+        "keyword": "muscles",
+        "question": "No one pushed or pulled the cricket, how did he move?",
+        "DCI": "Pushing or pulling on an object can change the speed or direction of its motion and can start or stop it.\nAll organisms have external parts. Different animals use their body parts in different ways to see, hear, grasp objects, protect themselves, move from place to place, and seek, find, and take in food, water and air. Plants also have different parts (roots, stems, leaves, flowers, fruits) that help them survive and grow.",
+        "statement": "Use observations to describe patterns of what plants and animals (including humans) need to survive."
+    },
+    "13":{
+        "keyword": "muscles",
+        "question": "What makes different animals move?",
+        "DCI": "Pushing or pulling on an object can change the speed or direction of its motion and can start or stop it.\nAll organisms have external parts. Different animals use their body parts in different ways to see, hear, grasp objects, protect themselves, move from place to place, and seek, find, and take in food, water and air. Plants also have different parts (roots, stems, leaves, flowers, fruits) that help them survive and grow.",
+        "statement": "Use observations to describe patterns of what plants and animals (including humans) need to survive."
+    },
+    "17":{
+        "keyword": "stop",
+        "question": "Why did the ball stop for the black kitten instead of bounce like it did with the tree?",
+        "DCI": "When objects touch or collide, they push on one another and can change motion.",
+        "statement": "Plan and conduct an investigation to compare the effects of different strengths or different directions of pushes and pulls on the motion of an object."
+    }
+}
