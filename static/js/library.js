@@ -43,11 +43,11 @@ books1.map((book, index) => {
     bookElement.innerHTML = `
     <div class='FeaturedBook' key=${index} onclick="toBookDetail('${book.title}')">
         <img src='../static/files/books/${encodeURIComponent(book.title).replace(/'/g, '%27')}/cover.jpg' alt=${book.title} />
-        <br />
+        
         <div class='ShelfBookTitle'>${book.title}</div>
         <div class='tagSpace' id='tags_1${index}'>
         </div>
-        <br />
+        
         <div class='ShelfReadBook'>
             <i class="fa-solid fa-forward"></i>
             READ THE FULL STORY
@@ -65,11 +65,11 @@ books2.map((book, index) => {
     bookElement.innerHTML = `
     <div class='FeaturedBook' key=${index}>
         <img src='../static/files/books/${encodeURIComponent(book.title).replace(/'/g, '%27')}/cover.jpg' alt=${book.title} />
-        <br />
+
         <div class='ShelfBookTitle' onclick="toBookDetail('${encodeURIComponent(book.title).replace(/'/g, '%27')}')">${book.title}</div>
         <div class='tagSpace' id='tags_2${index}'>
         </div>
-        <br />
+
         <div class='ShelfReadBook'>
             <i class="fa-solid fa-forward"></i>
             READ THE FULL STORY
@@ -87,11 +87,11 @@ books3.map((book, index) => {
     bookElement.innerHTML = `
     <div class='FeaturedBook' key=${index}>
         <img src='../static/files/books/${encodeURIComponent(book.title).replace(/'/g, '%27')}/cover.jpg' alt=${book.title} />
-        <br />
+
         <div class='ShelfBookTitle' onclick="toBookDetail('${book.title}')">${book.title}</div>
         <div class='tagSpace' id='tags_3${index}'>
         </div>
-        <br />
+
         <div class='ShelfReadBook'>
             <i class="fa-solid fa-forward"></i>
             READ THE FULL STORY
@@ -109,11 +109,11 @@ books4.map((book, index) => {
     bookElement.innerHTML = `
     <div class='FeaturedBook' key=${index}>
         <img src='../static/files/books/${encodeURIComponent(book.title).replace(/'/g, '%27')}/cover.jpg' alt=${book.title} />
-        <br />
+
         <div class='ShelfBookTitle' onclick="toBookDetail('${book.title}')">${book.title}</div>
         <div class='tagSpace' id='tags_4${index}'>
         </div>
-        <br />
+
         <div class='ShelfReadBook'>
             <i class="fa-solid fa-forward"></i>
             READ THE FULL STORY

@@ -157,7 +157,9 @@ function genConv(){
     let knowledge = document.createElement("div");
     knowledge.className = 'Knowledge';
     knowledge.innerHTML = `<div class="keyWord">
+                            <img id='penguin' src='../static/files/imgs/penguin.png' />
                             <div id="bubble">
+                                
                                 <p1 id="Word">${gptData[(currentImageIndex-1).toString()].keyword}</p1>
                                 </br>
                                 <p2 id="Exp">${gptData[(currentImageIndex-1).toString()].explanation}</p2>
@@ -220,21 +222,21 @@ function genConv(){
                                 </div>
                             </div>`
         knowledge.appendChild(chatBox);
-        document.getElementById('chatContent').innerHTML = `<p1>${data.greeting} </p1></br><p3>${data.question}</p3>`;
+        document.getElementById('chatContent').innerHTML = `<p1>${data.greeting}</p1><br><p3>${data.question}</p3>`;
         if(document.querySelector('.inputBlock')){
             return;
         }
         document.querySelector('.chatBox').innerHTML += `<div class='inputBlock'>
                                 <div id="overlay"></div>
                                 <button id="voiceInputBtn" onclick="startVoiceInput()">
-                                    <img src='../static/files/imgs/voiceInput.png'>Answer here!
+                                    <img src='../static/files/imgs/voiceInput.png'>Record My Answer!
                                 </button>
                                 <textarea id="textInput"></textarea>
                                 <img id='loading' src="../static/files/imgs/loading.gif">
                               </div>`
         knowledge.innerHTML += `<div class='submitBlock'>
                               <button id="submitBtn" onclick="submitText()">
-                                <span>Send my answer!</span>
+                                <span>Check My Answer!</span>
                               </button>
                           </div>`;
         /*console.log(chatBox.innerHTML);*/
@@ -368,7 +370,7 @@ function startVoiceInput() {
         const result = event.results[0][0].transcript;
         textInput.value = result;
         textInput.removeAttribute('readonly');
-        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Answer here!`;
+        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Record My Answer!`;
       };
 
       recognition.start();

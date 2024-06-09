@@ -22,6 +22,63 @@
     unicode-range: U+0964-0965, U+0D81-0DF4, U+1CF2, U+200C-200D, U+25CC, U+111E1-111F4;
   }
 
+
+  
+.open-sans-light {
+font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 300;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
+}
+
+.open-sans-regular {
+font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
+}
+
+.open-sans-medium {
+font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 500;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
+}
+
+.source-serif-4-light{
+font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 300;
+font-style: normal;
+}
+  
+.source-serif-4-regular{
+font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
+}
+
+.source-serif-4-medium{
+font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 500;
+font-style: normal;
+}
+
+.lora-regular> {
+font-family: "Lora", serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
+}
+ 
 body {
     position: absolute;
     top: 0;
@@ -121,11 +178,16 @@ h2#Login{
 .TopContent{
     float: left;
     position: relative;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
+    /* font-optical-sizing: auto; */
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
     color: #FDF6E6;
     font-size: 25px;
     height: 100%;
-    width: 300px;
+    width: 325px;
     padding-top: 0px;
     border-width: 0;
     background-color: #ffffff00;
@@ -135,11 +197,16 @@ h2#Login{
 
 #Profile{
     float: right;
-    font-family: 'Baloo';
+    position: relative;
+    /* font-family: 'Baloo'; */
+    font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
     color: #FDF6E6;
     font-size: 25px;
     height: 100%;
-    padding-top: 15px;
+    padding-top: 20px;
 }
 
 #userIcon{
@@ -169,13 +236,25 @@ h2#Login{
 .BookList p1{
     color: #214556;
     font-size: 30px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
 }
 
 .BookList p2{
-    margin-left: 20px;
+    margin-left: 10px;
     font-size: 35px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 500;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
 }
 
 #Shelf{
@@ -206,13 +285,18 @@ h2#Login{
     flex-wrap: wrap; 
     margin-top: 8px;
     font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .tag0,.tag1,.tag2,.tag3,.tag4,.tag5,.tag6{
     margin: 5px;
-    padding: 3px;
+    padding: 5px;
     border-radius: 5px;
-    font-family: "Abhaya Libre", serif;
+    /* font-family: "Abhaya Libre", serif; */
+    font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
     color: #001E34;
 }
 
@@ -245,11 +329,27 @@ h2#Login{
     background-color: #d3acaf;
 }
 
+.BookTitle{
+    font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 500;
+font-style: normal;
+font-size: 50px;
+}
+
 .ShelfBookTitle{
+font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 500;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
+
+
     width: 100%;
     text-align: center;
     color: #214556;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 600;
 }
 
@@ -260,7 +360,14 @@ h2#Login{
 
 .ShelfReadBook{
     padding-left: 10px;
-    font-family: 'Inter Tight';
+    /* font-family: 'Inter Tight'; */
+    font-family: "Source Serif 4", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    padding-bottom: 10px;
+    color: #1B83DE;
+    
 }
 
 a {
@@ -290,13 +397,20 @@ a {
 
 .fa-solid.fa-swatchbook{
     color: #fb8e28;
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 #BookInst{
     color: #B1AFAA;
-    font-family: "ABeeZee", sans-serif;
-    font-style: italic;
+    /* font-family: "ABeeZee", sans-serif;
+    font-style: italic; */
+
+    font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
+font-variation-settings:
+    "wdth" 100;
     font-size: 20px;
 }
 
@@ -359,14 +473,23 @@ a {
     margin-bottom: 20px;
 }
 
+
 .paragraph{
-    font-family: 'Baloo 2';
+    /* font-family: 'Baloo 2'; */
+    /* font-family: "Open Sans", sans-serif; */
+    font-family: "Open Sans", sans-serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: italic;
+font-variation-settings:
+    "wdth" 100;
+
     font-size: 20px;
     max-width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    font-weight: 700;
+    /* font-weight: 700; */
 }
 
 .sentence {
@@ -416,8 +539,9 @@ a {
 }
 
 .Knowledge{
+
     padding-top: 30px;
-    width: 50%;
+    width: 600px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -465,13 +589,31 @@ a {
 }
 
 #Word{
-    font-family: 'Abhaya Libre';
+    /* font-family: 'Abhaya Libre'; */
+    /* font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100; */
+    font-family: "Source Serif 4", serif;
+font-optical-sizing: auto;
+font-weight: 400;
+font-style: normal;
+
     color: #214556;
     font-size: 50px;
 }
 
 #Exp{
-    font-family: 'Abhaya Libre';
+    /* font-family: 'Abhaya Libre'; */
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: italic;
+    font-variation-settings:
+        "wdth" 100;
+
     color: #214556;
     font-size: 20px;
 }
@@ -491,7 +633,8 @@ a {
 
 .QAbubble {
     padding: 7px;
-    font-family: baloo;
+    /* font-family: baloo; */
+    font-family: "Open Sans", sans-serif;
 }
 
 .message-system {
@@ -550,7 +693,8 @@ a {
     border-width: 3px;
     border-radius: 40px;
     border-color: #7a8260e8;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     overflow-y: scroll;
     background: #eef8ea5c;
 }
@@ -563,17 +707,24 @@ a {
 
 #penguin{
     float: left;
-    width: 100px;
+    width: 80px;
     height: fit-content;
 }
 
 #chatContent{
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+
     max-width: 500px;
     color: #214556;
 }
 
 #chatContent p1{
-    font-size: 27px;
+    font-size: 20px;
     line-height: 23px;
     color: #2c5621;
 }
@@ -584,32 +735,33 @@ a {
 }
 
 #chatContent p3{
-    font-size: 25px;
+    font-size: 20px;
     line-height: 23px;
     color: #8c4e09;
 }
 
 .inputBlock{
     background-color: #d9d9d9a5;
-    border-radius: 30px;
+    border-radius: 20px;
     display: flex;
     height: 100px;
 }
 
 #voiceInputBtn{
     margin: auto;
-    margin-left: 30px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     border-radius: 15px;
-    height: 40px;
-    width: 180px;
+    height: 60px;
+    width: 160px;
     background: #edf1fb;
-    font-family: "Baloo 2", sans-serif;
-    font-weight: 600;
+    /* font-family: "Baloo 2", sans-serif; */
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
     color: #1b83de;
     font-size: 20px;
     display: flex;
-    line-height: 40px;
+    line-height: 23px;
     align-items: center;
 }
 
@@ -643,11 +795,17 @@ a {
 }
 
 #textInput {
-    width: 300px;
-    padding: 10px;
-    margin: 20px;
+    width: 350px;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 15px;
+    height: 60px;
+    padding-left: 10px;
+
     font-size: 20px;
-    font-family: 'Baloo 2';
+    /* font-family: 'Baloo 2'; */
+    font-family: "Open Sans", sans-serif;
     border: none;
     border-radius: 20px;
     visibility: hidden;
@@ -667,16 +825,20 @@ a {
     margin: auto;
     padding: 10px;
     cursor: pointer;
-    border-radius: 40px;
+    border-radius: 20px;
     width: 250px;
     height: 70px;
+
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+
     font-size: 22px;
     color: white;
     background-color: #1B83DE;
     border: none;
     transition: all 0.5s;
     text-align: center;
-    font-weight: 800;
+    /* font-weight: 800; */
 }
 
 #submitBtn span{
@@ -726,7 +888,8 @@ a {
 }
 
 .knowledgeDetail p1{
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
 }
 
 .knowledgeDetail p2{
@@ -757,7 +920,8 @@ a {
     color: #585858;
     border-radius: 10px;
     margin-top: 10px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
 }
 
 #learned:hover{
@@ -823,7 +987,8 @@ a {
 }
 
 #dashTitle{
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     color: #214556;
     font-size: 50px;
     display: flex;
@@ -849,7 +1014,8 @@ a {
 }
 
 #nowReading p1{
-    font-family: 'Baloo 2';
+    /* font-family: 'Baloo 2'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 30px;
 }
 
@@ -875,7 +1041,8 @@ a {
     border-width: 1px;
     border-color: #B1AFAA;
     text-align: center;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 30px;
     color: #4A4A4A;
 }
@@ -998,7 +1165,8 @@ a {
 .bookKg p2{
     font-size: 20px;
     line-height: 20px;
-    font-family: 'Baloo 2';
+    /* font-family: 'Baloo 2'; */
+    font-family: "Open Sans", sans-serif;
     text-align: left;
 }
 
@@ -1031,7 +1199,8 @@ a {
     width: 90%;
     margin-top: 30px;
     padding: 20px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 30px;
     border-radius: 25px;
     border: solid;
@@ -1076,7 +1245,8 @@ a {
 }
 
 .recordTitle p1{
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     color: #7E7E7E;
     font-size: 30px;
     line-height: 20px;
@@ -1084,13 +1254,15 @@ a {
 }
 
 .recordTitle p2{
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     color: #000000;
     font-size: 60px;
 }
 
 .recordTitle p3{
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     color: #CCCCCC;
     font-size: 20px;
 }
@@ -1107,7 +1279,8 @@ a {
     width: 90%;
     margin-top: 50px;
     padding: 20px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 30px;
     border-radius: 25px;
     border: solid;
@@ -1155,7 +1328,8 @@ a {
 }
 
 .uploadStep {
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     padding-top: 20px;
     padding-left: 30px;
 }
@@ -1219,7 +1393,8 @@ a {
     margin-top: 30px;
     border: none;
     height: 50px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 35px;
     background-color: #1B83DE;
     color: #ffffff;
@@ -1238,7 +1413,8 @@ a {
     right: 0;
     height: 50px;
     width: 120px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 25px;
     background-color: #fed054;
     color: #765128c9;
@@ -1251,7 +1427,8 @@ a {
     right: 0;
     height: 50px;
     width: 150px;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 25px;
     background-color: #f3a8a8;
     color: #ffffff;
@@ -1263,7 +1440,8 @@ a {
     border-bottom: 1px solid black;
     outline: none;
     bottom: 0;
-    font-family: 'Baloo 2';
+    /* font-family: 'Baloo 2'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 30px;
     width: 450px;
 }
@@ -1274,7 +1452,8 @@ a {
     border: none;
     font-size: 25px;
     border-radius: 20px;
-    font-family: 'Baloo 2';
+    /* font-family: 'Baloo 2'; */
+    font-family: "Open Sans", sans-serif;
     padding: 10px;
 }
 
@@ -1290,7 +1469,8 @@ a {
     left: 50px;
     height: 50px;
     width: fit-content;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 20px;
     background-color: #a8bcf3;
     color: #ffffff;
@@ -1305,7 +1485,8 @@ a {
     right: 50px;
     height: 50px;
     width: fit-content;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 20px;
     background-color: #a8bcf3;
     color: #ffffff;
@@ -1319,7 +1500,8 @@ a {
     right: 50px;
     height: 50px;
     width: fit-content;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 20px;
     background-color: #f3bda8;
     color: #ffffff;
@@ -1338,7 +1520,8 @@ a {
     right: 300px;
     height: 50px;
     width: fit-content;
-    font-family: 'Baloo';
+    /* font-family: 'Baloo'; */
+    font-family: "Open Sans", sans-serif;
     font-size: 20px;
     background-color: #f3bda8;
     color: #ffffff;
