@@ -592,17 +592,20 @@ a {
 .inputBlock{
     background-color: #d9d9d9a5;
     border-radius: 30px;
-    display: flex;
-    height: 100px;
+    /* display: flex; */
+    height: 130px;
+    text-align: center;
+    padding: 30px;
+    margin-top: 10px;
 }
 
 #voiceInputBtn{
     margin: auto;
-    margin-left: 30px;
-    margin-right: 20px;
-    border-radius: 15px;
-    height: 40px;
-    width: 180px;
+    /* margin-left: 30px; */
+    /* margin-right: 20px; */
+    border-radius: 20px;
+    height: 50px;
+    max-width: 500px;
     background: #edf1fb;
     font-family: "Baloo 2", sans-serif;
     font-weight: 600;
@@ -611,6 +614,7 @@ a {
     display: flex;
     line-height: 40px;
     align-items: center;
+    margin-top: 6px;
 }
 
 #voiceInputBtn:hover{
@@ -643,14 +647,13 @@ a {
 }
 
 #textInput {
-    width: 300px;
+    width: 95%;
     padding: 10px;
-    margin: 20px;
+    margin: auto;
     font-size: 20px;
     font-family: 'Baloo 2';
     border: none;
     border-radius: 20px;
-    visibility: hidden;
 }
 
 .submitBlock{
