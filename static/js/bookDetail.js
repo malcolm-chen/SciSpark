@@ -24,6 +24,7 @@ let day;
 let isDataLoaded = false; 
 let isAudioEnded = false; 
 let isExpEnded = false;
+let isKnowledge = false;
 
 function startSessionTimer() {
     sessionStartTime = new Date().getTime(); // Get current time
@@ -136,8 +137,16 @@ function render_caption(textData){
         })
         if (isKeyWord){
             console.log(gptData[(currentImageIndex-1).toString()]);
+            console.log(currentSentence, sections[currentImageIndex-1].length)
             if(!gptData[(currentImageIndex-1).toString()].answer){
-                genConv();
+                // genConv();
+                if(!isKnowledge){
+                    genKG();
+                    isKnowledge = true;
+                }
+                if(currentSentence == sections[currentImageIndex-1].length - 1){
+                    genConv();
+                }
             }
             else{
                 review();
@@ -152,14 +161,12 @@ function render_caption(textData){
     }
 }
 
-function genConv(){
+function genKG(){
     const container = document.querySelector('.container');
     let knowledge = document.createElement("div");
     knowledge.className = 'Knowledge';
     knowledge.innerHTML = `<div class="keyWord">
-                            <img id='penguin' src='../static/files/imgs/penguin.png' />
                             <div id="bubble">
-                                
                                 <p1 id="Word">${gptData[(currentImageIndex-1).toString()].keyword}</p1>
                                 </br>
                                 <p2 id="Exp">${gptData[(currentImageIndex-1).toString()].explanation}</p2>
@@ -169,9 +176,39 @@ function genConv(){
     if(document.querySelector('.Knowledge') == null){
         container.appendChild(knowledge);
     }
-    /*const voiceInputBtn = document.getElementById('voiceInputBtn');
-    const textinput = document.getElementById('textInput');
-    voiceInputBtn.addEventListener('click', startVoiceInput);*/
+    /* const audioPlayer = document.getElementById('audioPlayer');
+    audioPlayer.addEventListener('ended', function () {
+        isAudioEnded = true;
+        if (isDataLoaded && !isExpPlayed) { 
+            playExpAudio();
+            const ExpAudioPlayer = document.getElementById('expAudioPlayer');
+            ExpAudioPlayer.addEventListener('ended', function () {
+                isExpEnded = true;
+                playConvAudio();
+                isExpPlayed = true;
+            });
+        }
+        audioPlayer.removeEventListener('ended', arguments.callee);
+    }); */
+
+}
+
+function genConv(){
+    const container = document.querySelector('.container');
+    const knowledge = document.querySelector('.Knowledge');
+    /* let knowledge = document.createElement("div");
+    knowledge.className = 'Knowledge';
+    knowledge.innerHTML = `<div class="keyWord">
+                            <div id="bubble">
+                                <p1 id="Word">${gptData[(currentImageIndex-1).toString()].keyword}</p1>
+                                </br>
+                                <p2 id="Exp">${gptData[(currentImageIndex-1).toString()].explanation}</p2>
+                            </div>
+                         </div>`;
+
+    if(document.querySelector('.Knowledge') == null){
+        container.appendChild(knowledge);
+    }
     const audioPlayer = document.getElementById('audioPlayer');
     audioPlayer.addEventListener('ended', function () {
         isAudioEnded = true;
@@ -185,7 +222,7 @@ function genConv(){
             });
         }
         audioPlayer.removeEventListener('ended', arguments.callee);
-    });
+    }); */
 
     isDataLoaded = false;
     isExpPlayed = false;
@@ -222,32 +259,40 @@ function genConv(){
                                 </div>
                             </div>`
         knowledge.appendChild(chatBox);
-        document.getElementById('chatContent').innerHTML = `<p1>${data.greeting}</p1><br><p3>${data.question}</p3>`;
+        document.getElementById('chatContent').innerHTML = `<p1>${data.greeting} </p1></br><p3>${data.question}</p3>`;
         if(document.querySelector('.inputBlock')){
             return;
         }
         document.querySelector('.chatBox').innerHTML += `<div class='inputBlock'>
                                 <div id="overlay"></div>
-                                <button id="voiceInputBtn" onclick="startVoiceInput()">
-                                    <img src='../static/files/imgs/voiceInput.png'>Record My Answer!
-                                </button>
                                 <textarea id="textInput"></textarea>
+                                <button id="voiceInputBtn" onclick="toggleVoiceInput()">
+                                    <img src='../static/files/imgs/voiceInput.png'>Answer here!
+                                </button>
                                 <img id='loading' src="../static/files/imgs/loading.gif">
                               </div>`
-        knowledge.innerHTML += `<div class='submitBlock'>
+        /* knowledge.innerHTML += `<div class='submitBlock'>
                               <button id="submitBtn" onclick="submitText()">
-                                <span>Check My Answer!</span>
+                                <span>Send my answer!</span>
                               </button>
-                          </div>`;
+                          </div>`; */
         /*console.log(chatBox.innerHTML);*/
         /*document.getElementById('response').innerHTML = data.response;*/
         isDataLoaded = true;
-        if(isAudioEnded && !isExpPlayed){
-            playExpAudio();
-            if(isExpEnded && !isConvPlayed){
-                playConvAudio();
+        const audioPlayer = document.getElementById('audioPlayer');
+        audioPlayer.addEventListener('ended', function () {
+            isAudioEnded = true;
+            if (isDataLoaded && !isExpPlayed) { 
+                playExpAudio();
+                const ExpAudioPlayer = document.getElementById('expAudioPlayer');
+                ExpAudioPlayer.addEventListener('ended', function () {
+                    isExpEnded = true;
+                    playConvAudio();
+                    isExpPlayed = true;
+                });
             }
-        }
+            audioPlayer.removeEventListener('ended', arguments.callee);
+        });
     })
     .catch(error => console.error('Error:', error));
 }
@@ -275,21 +320,20 @@ function playExpAudio(){
 }
 
 function playNextSentence() {
-    if (currentSentence < sections[currentImageIndex-1].length -1 && !isKeyWord) {
+    if (currentSentence < sections[currentImageIndex-1].length -1) {
         currentSentence++;
         playAudio(sections[currentImageIndex-1][currentSentence].audio);
         render_caption(sections[currentImageIndex-1][currentSentence].text);
-    } else {
-        if (isKeyWord && !isReview){
-            playExpAudio();
-        }
+    }
+    if (currentSentence == sections[currentImageIndex-1].length && isKeyWord && !isReview){
+        /* playExpAudio(); */
         audioPlayer.removeEventListener('ended', playNextSentence);
+    } 
         /* add another factor: this is the first time to answer */
         /*if (isKeyWord && !isReview){
             /* If in Review mode, do not play */
             /*playConvAudio();*/
         /*}*/
-    }
 }
 
 function updateProgressBar() {
@@ -300,7 +344,8 @@ function updateProgressBar() {
 }
 
 function showImage() {
-    isKeyWord = false;
+    /* isKeyWord = false; */
+    isKnowledge = false;
     const currentImage = document.getElementById("BookImg");
     currentImage.src = `../static/files/books/${bookTitle}/pages/page${currentImageIndex}.jpg`;
     updateProgressBar();
@@ -319,6 +364,7 @@ function showImage() {
 }
 
 function NextPage() {
+    isKeyWord = false;
     isReview = false;
     if (document.querySelector('.Knowledge') != null){
         save_knowledge_state(true, 'false');
@@ -356,6 +402,42 @@ function textAudio(){
     console.log(sections);
 }
 
+let recognition;
+let recognizing = false;
+
+function toggleVoiceInput() {
+    const textInput = document.getElementById('textInput');
+    const voiceInputBtn = document.getElementById('voiceInputBtn');
+
+    if (recognizing) {
+        // Stop recognition
+        recognition.stop();
+        recognizing = false;
+        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Answer here!`;
+        submitText();
+    } else {
+        // Start recognition
+        textInput.style.visibility = 'visible';
+        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Speaking...Click to send my answer!`;
+
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function(event) {
+                const result = event.results[0][0].transcript;
+                textInput.value = result;
+                textInput.removeAttribute('readonly');
+            };
+
+            recognition.start();
+            recognizing = true;
+        } else {
+            alert('Sorry, your browser does not support speech recognition!');
+        }
+    }
+}
+
 function startVoiceInput() {
     const textInput = document.getElementById('textInput');
     textInput.style.visibility = 'visible';
@@ -370,7 +452,7 @@ function startVoiceInput() {
         const result = event.results[0][0].transcript;
         textInput.value = result;
         textInput.removeAttribute('readonly');
-        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Record My Answer!`;
+        voiceInputBtn.innerHTML = `<img src='../static/files/imgs/voiceInput.png'>Answer here!`;
       };
 
       recognition.start();
@@ -415,7 +497,7 @@ function submitText() {
         if(response_dict.end.toString().toLowerCase() == 'true'){
             document.getElementById('chatContent').innerHTML = `<p1>${response_dict.feedback} </p1><p2>${response_dict.explanation} </p2><p2>${response_dict.transition} </p2>`;
             document.querySelector('.inputBlock').remove();
-            document.querySelector('.submitBlock').remove();
+            /* document.querySelector('.submitBlock').remove(); */
             document.querySelector('.Knowledge').innerHTML += `<div id='continueBlock'>
                                         <button id="continue" onclick="continueRead()">Continue reading!</button>
                                     </div>`;
