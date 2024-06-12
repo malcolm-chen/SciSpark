@@ -171,7 +171,7 @@ def prompt_conv(title, story, keyword, knowledge, statements):
 Now you are a conversational agent interacting with a child aged 3-6, like a teacher, by asking questions and providing responsive feedback to the child. 
 You and the child will take turns having a conversation, with each turn generating one question.
 During the conversation, ask a series of questions n child-friendly language.
-The total question number should be no more than five.
+The total question number should be no more than three.
 If the child demonstrate great understanding of the knowledge, you should ask less questions.
 
 There will be a concept word in the story text, and the concept word is associated with a piece of external science knowledge.
